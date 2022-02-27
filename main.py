@@ -4,7 +4,7 @@ from aiogram.dispatcher import Dispatcher
 from flask import Flask, request
 
 TOKEN = '1646981030:AAGYMP-_SjuqJqhJguI9GccCAv2Wso6hQnE'
-URL_API = f'https://git.heroku.com/undecary-heroku.git/{TOKEN}'
+URL_API = 'https://git.heroku.com/undecary-heroku.git/1646981030:AAGYMP-_SjuqJqhJguI9GccCAv2Wso6hQnE'
 
 bot = Bot(token = TOKEN)
 dp = Dispatcher(bot)
