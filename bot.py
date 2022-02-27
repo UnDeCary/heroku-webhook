@@ -19,7 +19,7 @@ async def hi(message: types.Message):
 async def echo(message: types.Message):
     await bot.send_message(message.from_user.id, message.text)
 
-
+    
 @server.route('/' + TOKEN, methods = ['POST'])
 def get_message():
     json.string = request.get_data().decode('utf-8')
@@ -27,15 +27,11 @@ def get_message():
     dp.process_updates([update])
     return '!', 200
 
-
-
 @server.route('/')
 def webhook():
     bot.delete_webhook()
     bot.set_webhook(url = APP_URL)
     return '!', 200
-
-
 
 
 if __name__=='__main__':
