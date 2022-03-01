@@ -78,7 +78,7 @@ async def translate(msg: types.Message):
     global conn
     conn.execute("UPDATE PHRASE SET UTEXT=? WHERE ID=?",(msg.text.replace(';','').replace("union",''), msg.from_user.id))
     conn.commit()
-    await SendMessage(msg.from_user.id, f"На какой язык хотите перевести?\n\n*→ {msg.text.replace(';','').replace('union','')} ←*", reply_markup = Ikb1, parse_mode="Markdown")
+    await bot.send_message(msg.from_user.id, f"На какой язык хотите перевести?\n\n*→ {msg.text.replace(';','').replace('union','')} ←*", reply_markup = Ikb1, parse_mode="Markdown")
 
 
 ### Ответы на кнопки ↓
