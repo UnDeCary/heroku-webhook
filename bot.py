@@ -92,7 +92,7 @@ async def translate_to_en(callback_query: types.CallbackQuery):
     conn.close()
     await bot.answer_callback_query(callback_query.id)
     try:
-        return SendMessage(callback_query.from_user.id, f'''→{TextBlob(str(data).replace('(','').replace(')','').replace("'",'').replace(",",'')).translate(to = 'en')}''')
+        return SendMessage(callback_query.from_user.id, f'''{TextBlob(str(data).replace('(','').replace(')','').replace("'",'').replace(",",'')).translate(to = 'en')}''')
     except:
         return SendMessage(callback_query.from_user.id, "Ошибка :c")
 
