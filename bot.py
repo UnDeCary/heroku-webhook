@@ -71,7 +71,7 @@ async def hi(msg: types.Message):
         pass
 
 
-    return SendMessage(msg.from_user.id, "Пришли текст, я переведу!")
+    return bot.send_message(msg.from_user.id, "Пришли текст, я переведу!")
 
 @dp.message_handler()
 async def translate(msg: types.Message):
