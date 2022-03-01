@@ -15,7 +15,7 @@ import sqlite3
 
 # Variables ↓
 
-API_TOKEN = '1646981030:AAGYMP-_SjuqJqhJguI9GccCAv2Wso6hQnE'
+API_TOKEN = '5186718918:AAFN3EFlUZ0NBRDv3T3vzogCZyuvYf4IM0w'
 
 # webhook settings
 
