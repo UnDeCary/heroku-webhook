@@ -107,7 +107,7 @@ async def translate_to_sp(callback_query: types.CallbackQuery):
     conn.close()
     await bot.answer_callback_query(callback_query.id)
     try:
-        return SendMessage(callback_query.from_user.id, TextBlob(str(data).replace('(','').replace(')','').replace("'",'').replace(",",'')).translate(to = 'es'))
+        return SendMessage(callback_query.from_user.id, f'''{TextBlob(str(data).replace('(','').replace(')','').replace("'",'').replace(",",'')).translate(to = 'es')}''')
     except:
         return SendMessage(callback_query.from_user.id, "Ошибка :c")
 
@@ -122,7 +122,7 @@ async def translate_to_ch(callback_query: types.CallbackQuery):
     conn.close()
     await bot.answer_callback_query(callback_query.id)
     try:
-        return SendMessage(callback_query.from_user.id, TextBlob(str(data).replace('(','').replace(')','').replace("'",'').replace(",",'')).translate(to = 'fr'))
+        return SendMessage(callback_query.from_user.id, f'''{TextBlob(str(data).replace('(','').replace(')','').replace("'",'').replace(",",'')).translate(to = 'fr')}''')
     except:
         return SendMessage(callback_query.from_user.id, "Ошибка :c")
 
@@ -137,7 +137,7 @@ async def translate_to_ger(callback_query: types.CallbackQuery):
     conn.close()
     await bot.answer_callback_query(callback_query.id)
     try:
-        return SendMessage(callback_query.from_user.id, TextBlob(str(data).replace('(','').replace(')','').replace("'",'').replace(",",'')).translate(to = 'de'))
+        return SendMessage(callback_query.from_user.id, f'''{TextBlob(str(data).replace('(','').replace(')','').replace("'",'').replace(",",'')).translate(to = 'de')}''')
     except:
         return SendMessage(callback_query.from_user.id, "Ошибка :c")
 
@@ -152,7 +152,7 @@ async def translate_to_ger(callback_query: types.CallbackQuery):
     conn.close()
     await bot.answer_callback_query(callback_query.id)
     try:
-        return SendMessage(callback_query.from_user.id, TextBlob(str(data).replace('(','').replace(')','').replace("'",'').replace(",",'')).translate(to = 'zh'))
+        return SendMessage(callback_query.from_user.id, f'''{TextBlob(str(data).replace('(','').replace(')','').replace("'",'').replace(",",'')).translate(to = 'zh')}''')
     except:
         return SendMessage(callback_query.from_user.id, "Ошибка :c")
 
@@ -167,7 +167,7 @@ async def translate_to_ger(callback_query: types.CallbackQuery):
     conn.close()
     await bot.answer_callback_query(callback_query.id)
     try:
-        return SendMessage(callback_query.from_user.id, TextBlob(str(data).replace('(','').replace(')','').replace("'",'').replace(",",'')).translate(to = 'ja'))
+        return SendMessage(callback_query.from_user.id, f'''{TextBlob(str(data).replace('(','').replace(')','').replace("'",'').replace(",",'')).translate(to = 'ja')}''')
     except:
         return SendMessage(callback_query.from_user.id, "Ошибка :c")
 
@@ -181,7 +181,7 @@ async def translate_to_ger(callback_query: types.CallbackQuery):
     conn.close()
     await bot.answer_callback_query(callback_query.id)
     try:
-        return SendMessage(callback_query.from_user.id, TextBlob(str(data).replace('(','').replace(')','').replace("'",'').replace(",",'')).translate(to = 'ru'))
+        return SendMessage(callback_query.from_user.id, f'''{TextBlob(str(data).replace('(','').replace(')','').replace("'",'').replace(",",'')).translate(to = 'ru')}''')
     except:
         return SendMessage(callback_query.from_user.id, "Ошибка :c")
 
