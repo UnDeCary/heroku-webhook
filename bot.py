@@ -28,7 +28,7 @@ WEBHOOK_URL = f'{WEBHOOK_HOST}{WEBHOOK_PATH}'
 
 # webserver settings
 
-WEBAPP_HOST = 'localhost'
+WEBAPP_HOST = '185.205.209.227'
 WEBAPP_PORT = 7007
 
 # bot settings + logging ↓
