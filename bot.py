@@ -12,9 +12,6 @@ from aiogram.utils.executor import start_webhook
 from textblob import TextBlob
 import sqlite3
 
-# DataBase ↓
-
-conn = sqlite3.connect('gTranslate.db', check_same_thread = False)
 
 # Variables ↓
 
@@ -54,7 +51,7 @@ Ikb1 = InlineKeyboardMarkup(row_width = 2).add(btn1, btn2, btn3, btn4, btn5, btn
 
 @dp.message_handler(commands = ['start'])
 async def hi(msg: types.Message):
-    global conn
+    conn = sqlite3.connect('gTranslate.db', check_same_thread = False)
 
     cursor = conn.cursor()
     cursor.execute(f"SELECT UTEXT FROM PHRASE WHERE ID = {msg.chat.id}")
@@ -66,18 +63,19 @@ async def hi(msg: types.Message):
         VALUES (?, ?)
         """,(msg.chat.id,'Some text'))
         conn.commit()
-
+      
     else:
         pass
-
+    conn.close()
 
     return SendMessage(msg.chat.id, "Пришли текст, я переведу!")
 
 @dp.message_handler()
 async def translate(msg: types.Message):
-    global conn
+    conn = sqlite3.connect('gTranslate.db', check_same_thread = False)
     conn.execute("UPDATE PHRASE SET UTEXT=? WHERE ID=?",(msg.text.replace(';','').replace("union",''), msg.chat.id))
     conn.commit()
+    conn.close()
     return SendMessage(msg.chat.id, f"На какой язык хотите перевести?\n\n*→ {msg.text.replace(';','').replace('union','')} ←*", reply_markup = Ikb1, parse_mode="Markdown")
 
 
@@ -87,11 +85,11 @@ async def translate(msg: types.Message):
 
 @dp.callback_query_handler(text = 'button1')
 async def translate_to_en(callback_query: types.CallbackQuery):
-    global conn
+    conn = sqlite3.connect('gTranslate.db', check_same_thread = False)
     cursor = conn.cursor()
     cursor.execute(f"SELECT UTEXT FROM PHRASE WHERE ID={callback_query.from_user.id}")
     data = cursor.fetchone()
-
+    conn.close()
     await bot.answer_callback_query(callback_query.id)
     try:
         return SendMessage(callback_query.from_user.id, TextBlob(str(data).replace('(','').replace(')','').replace("'",'').replace(",",'')).translate(to = 'en'))
@@ -102,11 +100,11 @@ async def translate_to_en(callback_query: types.CallbackQuery):
 
 @dp.callback_query_handler(text = 'button2')
 async def translate_to_sp(callback_query: types.CallbackQuery):
-    global conn
+    conn = sqlite3.connect('gTranslate.db', check_same_thread = False)
     cursor = conn.cursor()
     cursor.execute(f"SELECT UTEXT FROM PHRASE WHERE ID={callback_query.from_user.id}")
     data = cursor.fetchone()
-
+    conn.close()
     await bot.answer_callback_query(callback_query.id)
     try:
         return SendMessage(callback_query.from_user.id, TextBlob(str(data).replace('(','').replace(')','').replace("'",'').replace(",",'')).translate(to = 'es'))
@@ -117,11 +115,11 @@ async def translate_to_sp(callback_query: types.CallbackQuery):
 
 @dp.callback_query_handler(text = 'button3')
 async def translate_to_ch(callback_query: types.CallbackQuery):
-    global conn
+    conn = sqlite3.connect('gTranslate.db', check_same_thread = False)
     cursor = conn.cursor()
     cursor.execute(f"SELECT UTEXT FROM PHRASE WHERE ID={callback_query.from_user.id}")
     data = cursor.fetchone()
-
+    conn.close()
     await bot.answer_callback_query(callback_query.id)
     try:
         return SendMessage(callback_query.from_user.id, TextBlob(str(data).replace('(','').replace(')','').replace("'",'').replace(",",'')).translate(to = 'fr'))
@@ -132,11 +130,11 @@ async def translate_to_ch(callback_query: types.CallbackQuery):
 
 @dp.callback_query_handler(text = 'button4')
 async def translate_to_ger(callback_query: types.CallbackQuery):
-    global conn
+    conn = sqlite3.connect('gTranslate.db', check_same_thread = False)
     cursor = conn.cursor()
     cursor.execute(f"SELECT UTEXT FROM PHRASE WHERE ID={callback_query.from_user.id}")
     data = cursor.fetchone()
-
+    conn.close()
     await bot.answer_callback_query(callback_query.id)
     try:
         return SendMessage(callback_query.from_user.id, TextBlob(str(data).replace('(','').replace(')','').replace("'",'').replace(",",'')).translate(to = 'de'))
@@ -147,11 +145,11 @@ async def translate_to_ger(callback_query: types.CallbackQuery):
 
 @dp.callback_query_handler(text = 'button5')
 async def translate_to_ger(callback_query: types.CallbackQuery):
-    global conn
+    conn = sqlite3.connect('gTranslate.db', check_same_thread = False)
     cursor = conn.cursor()
     cursor.execute(f"SELECT UTEXT FROM PHRASE WHERE ID={callback_query.from_user.id}")
     data = cursor.fetchone()
-
+    conn.close()
     await bot.answer_callback_query(callback_query.id)
     try:
         return SendMessage(callback_query.from_user.id, TextBlob(str(data).replace('(','').replace(')','').replace("'",'').replace(",",'')).translate(to = 'zh'))
@@ -162,11 +160,11 @@ async def translate_to_ger(callback_query: types.CallbackQuery):
 
 @dp.callback_query_handler(text = 'button6')
 async def translate_to_ger(callback_query: types.CallbackQuery):
-    global conn
+    conn = sqlite3.connect('gTranslate.db', check_same_thread = False)
     cursor = conn.cursor()
     cursor.execute(f"SELECT UTEXT FROM PHRASE WHERE ID={callback_query.from_user.id}")
     data = cursor.fetchone()
-
+    conn.close()
     await bot.answer_callback_query(callback_query.id)
     try:
         return SendMessage(callback_query.from_user.id, TextBlob(str(data).replace('(','').replace(')','').replace("'",'').replace(",",'')).translate(to = 'ja'))
@@ -176,11 +174,11 @@ async def translate_to_ger(callback_query: types.CallbackQuery):
 
 @dp.callback_query_handler(text = 'button7')
 async def translate_to_ger(callback_query: types.CallbackQuery):
-    global conn
+    conn = sqlite3.connect('gTranslate.db', check_same_thread = False)
     cursor = conn.cursor()
     cursor.execute(f"SELECT UTEXT FROM PHRASE WHERE ID={callback_query.from_user.id}")
     data = cursor.fetchone()
-
+    conn.close()
     await bot.answer_callback_query(callback_query.id)
     try:
         return SendMessage(callback_query.from_user.id, TextBlob(str(data).replace('(','').replace(')','').replace("'",'').replace(",",'')).translate(to = 'ru'))
