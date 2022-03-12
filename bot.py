@@ -38,7 +38,7 @@ dp.middleware.setup(LoggingMiddleware())
 
 #Inline Keyboard ↓
 
-btn1 = InlineKeyboardButton('🇺🇸 Англиский 🇬🇧', callback_data = 'button1')
+btn1 = InlineKeyboardButton('🇺🇸 Английский 🇬🇧', callback_data = 'button1')
 btn2 = InlineKeyboardButton('🇪🇸 Испанский 🇪🇸', callback_data = 'button2')
 btn3 = InlineKeyboardButton('🇫🇷 Французский 🇫🇷', callback_data = 'button3')
 btn4 = InlineKeyboardButton('🇩🇪 Немецкий 🇩🇪', callback_data = 'button4')
