@@ -87,6 +87,7 @@ async def delete(message: types.Message):
         cursor = conn.cursor()
         cursor.execute(f"SELECT * FROM Members WHERE Number={int(msg[1])}")
         conn.execute(f"DELETE FROM Members WHERE Number={mes[1]}")
+        conn.commit()
         return SendMessage(message.from_user.id, f'{cursor.fetchall()} | Удалено')
         conn.close()
         print('close')
