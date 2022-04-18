@@ -75,10 +75,23 @@ async def show(message: types.Message):
         cursor = conn.cursor()
         cursor.execute(f"SELECT * FROM Members WHERE Number={int(msg[1])}")
         return SendMessage(message.from_user.id, cursor.fetchall())
+        conn.close()
     else:
         pass
     
-    
+@dp.message_handler(commands=['delete'])
+async def delete(message: types.Message):
+    if message.from_user.id == 825292339:
+        msg = message.text.split()
+        conn = sqlite3.connect('Raffle.db', check_same_thread=False)
+        cursor = conn.cursor()
+        cursor.execute(f"SELECT * FROM Members WHERE Number={int(msg[1])}")
+        conn.execute(f"DELETE FROM Members WHERE Number={mes[1]}")
+        return SendMessage(message.from_user.id, f'{cursor.fetchall()} | Удалено')
+        conn.close()
+        print('close')
+    else:
+        pass
     
     
 @dp.callback_query_handler(text='Order')
