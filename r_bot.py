@@ -69,18 +69,15 @@ async def start(message: types.Message):
 
 @dp.message_handler(commands=['show-db'])
 async def show(message: types.Message):
-    #if message.from_user.id == 825292339:
     conn = sqlite3.connect('Raffle.db', check_same_thread=False)
     cursor = conn.cursor()
     cursor.execute(f"SELECT * FROM Members")
     a_data = cursor.fetchall()
     a_data_p = ''''''
     for row in a_data:
-        a_data_p += f'{row[0]} | {row[1]} | {row[2]} | {row[3]}'
+        a_data_p += f'{row[0]} | {row[1]} | {row[2]} | {row[3]}\n'
 
-    return SendMessage(message.from_user.id, a_data_p)
-    #else:
-    #    pass
+    print(a_data_p)
 
 @dp.callback_query_handler(text='Order')
 async def order(call: types.CallbackQuery):
