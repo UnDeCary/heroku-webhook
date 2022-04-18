@@ -8,7 +8,7 @@ import logging
 from aiogram import Bot, types
 from aiogram.contrib.middlewares.logging import LoggingMiddleware
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from aiogram.dispatcher.webhook import SendMessage, SendInvoice, EditMessageText, AnswerPreCheckoutQuery
+from aiogram.dispatcher.webhook import SendMessage, SendInvoice, AnswerPreCheckoutQuery
 from aiogram.dispatcher import Dispatcher
 from aiogram.utils.executor import start_webhook
 
@@ -65,7 +65,7 @@ async def start(message: types.Message):
 @dp.callback_query_handler(text='Order')
 async def order(call: types.CallbackQuery):
 
-    return EditMessageText('''Привет!\n\nЭтот бот сделан для организации розыгрыша среди учеников *гимназии №60*
+    await call.message.edit_text('''Привет!\n\nЭтот бот сделан для организации розыгрыша среди учеников *гимназии №60*
     Период регистрации *25 апреля* - *25 мая*
     Оглошение результатов 25 мая на линейке.\nРозыгрываются 2 самоката:\n*МОДЕЛЬ 1*\n*МОДЕЛЬ 2*\n
     Участие стоит *1.000 ₸*.\nЧтобы присединиться, оплатите счет ↓ ''',
