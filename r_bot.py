@@ -8,7 +8,7 @@ import logging
 from aiogram import Bot, types
 from aiogram.contrib.middlewares.logging import LoggingMiddleware
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from aiogram.dispatcher.webhook import SendMessage, SendInvoice, AnswerPreCheckoutQuery
+from aiogram.dispatcher.webhook import SendMessage, SendInvoice, EditMessageText, AnswerPreCheckoutQuery
 from aiogram.dispatcher import Dispatcher
 from aiogram.utils.executor import start_webhook
 
@@ -48,42 +48,71 @@ async def start(message: types.Message):
     cursor = conn.cursor()
     cursor.execute(f"SELECT * FROM Members WHERE CHAT_ID={message.from_user.id}")
     data = cursor.fetchall()
+    cursor.execute(f"SELECT * FROM Members")
+    max = cursor.fetchall()
 
     if data == []:
         return SendMessage(message.from_user.id, '''Привет!\n\nЭтот бот сделан для организации розыгрыша среди учеников *гимназии №60*
 Период регистрации *25 апреля* - *25 мая*
+Макс. число участников - *250 человек*
 Оглошение результатов 25 мая на линейке.\nРозыгрываются 2 самоката:\n*МОДЕЛЬ 1*\n*МОДЕЛЬ 2*\n
 Участие стоит *1.000 ₸*.\nЧтобы присединиться, оплатите счет ↓ ''',
                                reply_markup = InlineKeyboardMarkup().add(InlineKeyboardButton('Записаться', callback_data='Order')),
                                parse_mode='MARKDOWN')
+    elif len(max) == 250:
+        return SendMessage(message.from_user.id, 'Набор участников закрыт')
 
     else:
         cursor.execute(f"SELECT Number FROM Members WHERE CHAT_ID={message.from_user.id}")
         return SendMessage(message.from_user.id, f'Вы уже принимаете участие, ваш номер *{cursor.fetchone()[0]}*', parse_mode='MARKDOWN')
     conn.close()
 
+@dp.message_handler(commands=['show-db'])
+async def show(message: types.Message):
+    if message.from_user.id == 825292339:
+        conn = sqlite3.connect('Raffle.db', check_same_thread=False)
+        cursor = conn.cursor()
+        cursor.execute(f"SELECT * FROM Memberes")
+        a_data = cursor.fetchall()
+        a_data_p = ''''''
+        for row in a_data:
+            a_data_p += f'{row[0]} | {row[1]} | {row[2]} | {row[3]}'
+        
+        return SendMessage(message.from_user.id, a_data_p)
+    else:
+        pass
+
 @dp.callback_query_handler(text='Order')
 async def order(call: types.CallbackQuery):
+    conn = sqlite3.connect('Raffle.db', check_same_thread=False)
+    cursor = conn.cursor()
+    cursor.execute(f"SELECT * FROM Members")
+    max = cursor.fetchall()
 
-    await call.message.edit_text('''Привет!\n\nЭтот бот сделан для организации розыгрыша среди учеников *гимназии №60*
-    Период регистрации *25 апреля* - *25 мая*
-    Оглошение результатов 25 мая на линейке.\nРозыгрываются 2 самоката:\n*МОДЕЛЬ 1*\n*МОДЕЛЬ 2*\n
-    Участие стоит *1.000 ₸*.\nЧтобы присединиться, оплатите счет ↓ ''',
-                                 reply_markup = InlineKeyboardMarkup().add(InlineKeyboardButton(' ', callback_data='nothing')),
-                                 parse_mode='MARKDOWN')
+    if len(max) == 250:
+        return SendMessage(message.from_user.id, 'Набор участников закрыт')
+    
+    else:
 
-    return SendInvoice(call.from_user.id,
-                           title='Принять участие',
-                           description=f'''После оплаты вы получите номер, среди всех номеров на линейке будет выбранно 2 номера случайным образом\n
-Именно ты имеешь шанс получить один из 2-х самокатов''',
-                           provider_token=PROVIDER_TOKEN,
-                           currency='kzt',
-                           need_name=True,
-                           need_phone_number=True,
-                           prices=[types.LabeledPrice(label=f"Принять участие", amount=100000)],
-                           start_parameter='product',
-                           payload='payload-for-internal-use'
-                           )
+        return EditMessageText('''Привет!\n\nЭтот бот сделан для организации розыгрыша среди учеников *гимназии №60*
+        Период регистрации *25 апреля* - *25 мая*
+        Оглошение результатов 25 мая на линейке.\nРозыгрываются 2 самоката:\n*МОДЕЛЬ 1*\n*МОДЕЛЬ 2*\n
+        Участие стоит *1.000 ₸*.\nЧтобы присединиться, оплатите счет ↓ ''',
+                                     reply_markup = InlineKeyboardMarkup().add(InlineKeyboardButton(' ', callback_data='nothing')),
+                                     parse_mode='MARKDOWN')
+    
+        return SendInvoice(call.from_user.id,
+                               title='Принять участие',
+                               description=f'''После оплаты вы получите номер, среди всех номеров на линейке будет выбранно 2 номера случайным образом\n
+    Именно ты имеешь шанс получить один из 2-х самокатов''',
+                               provider_token=PROVIDER_TOKEN,
+                               currency='kzt',
+                               need_name=True,
+                               need_phone_number=True,
+                               prices=[types.LabeledPrice(label=f"Принять участие", amount=100000)],
+                               start_parameter='product',
+                               payload='payload-for-internal-use'
+                               )
 
 @dp.pre_checkout_query_handler(lambda query: True)
 async def process_pre_checkout_query(pre_query: types.PreCheckoutQuery):
