@@ -72,7 +72,7 @@ async def show(message: types.Message):
     if message.from_user.id == 825292339:
         conn = sqlite3.connect('Raffle.db', check_same_thread=False)
         cursor = conn.cursor()
-        cursor.execute(f"SELECT * FROM Memberes")
+        cursor.execute(f"SELECT * FROM Members")
         a_data = cursor.fetchall()
         a_data_p = ''''''
         for row in a_data:
