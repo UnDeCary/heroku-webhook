@@ -90,7 +90,7 @@ async def order(call: types.CallbackQuery):
     max = cursor.fetchall()
 
     if len(max) == 250:
-        return SendMessage(message.from_user.id, 'Набор участников закрыт')
+        return SendMessage(call.from_user.id, 'Набор участников закрыт')
     
     else:
 
