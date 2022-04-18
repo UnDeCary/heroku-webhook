@@ -67,6 +67,20 @@ async def start(message: types.Message):
         return SendMessage(message.from_user.id, f'Вы уже принимаете участие, ваш номер *{cursor.fetchone()[0]}*', parse_mode='MARKDOWN')
     conn.close()
 
+@dp.message_handler(commands=['show'])
+async def show(message: types.Message):
+    if message.from_user.id == 825292339:
+        msg = message.text.split()
+        conn = sqlite3.connect('Raffle.db', check_same_thread=False)
+        cursor = conn.cursor()
+        cursor.execute(f"SELECT * FROM Members WHERE Number={int(msg[1])}")
+        return SendMessage(message.from_user.id, cursor.fetchall())
+    else:
+        pass
+    
+    
+    
+    
 @dp.callback_query_handler(text='Order')
 async def order(call: types.CallbackQuery):
     conn = sqlite3.connect('Raffle.db', check_same_thread=False)
