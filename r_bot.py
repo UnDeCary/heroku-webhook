@@ -67,18 +67,6 @@ async def start(message: types.Message):
         return SendMessage(message.from_user.id, f'Вы уже принимаете участие, ваш номер *{cursor.fetchone()[0]}*', parse_mode='MARKDOWN')
     conn.close()
 
-@dp.message_handler(commands=['show-db'])
-async def show(message: types.Message):
-    conn = sqlite3.connect('Raffle.db', check_same_thread=False)
-    cursor = conn.cursor()
-    cursor.execute(f"SELECT * FROM Members")
-    a_data = cursor.fetchall()
-    a_data_p = ''''''
-    for row in a_data:
-        a_data_p += f'{row[0]} | {row[1]} | {row[2]} | {row[3]}\n'
-
-    print(a_data_p)
-
 @dp.callback_query_handler(text='Order')
 async def order(call: types.CallbackQuery):
     conn = sqlite3.connect('Raffle.db', check_same_thread=False)
