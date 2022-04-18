@@ -70,27 +70,33 @@ async def start(message: types.Message):
 @dp.message_handler(commands=['show'])
 async def show(message: types.Message):
     if message.from_user.id == 825292339:
-        msg = message.text.split()
-        conn = sqlite3.connect('Raffle.db', check_same_thread=False)
-        cursor = conn.cursor()
-        cursor.execute(f"SELECT * FROM Members WHERE Number={int(msg[1])}")
-        return SendMessage(message.from_user.id, cursor.fetchall())
-        conn.close()
+        try:
+            msg = message.text.split()
+            conn = sqlite3.connect('Raffle.db', check_same_thread=False)
+            cursor = conn.cursor()
+            cursor.execute(f"SELECT * FROM Members WHERE Number={int(msg[1])}")
+            return SendMessage(message.from_user.id, cursor.fetchall())
+            conn.close()
+        except:
+            return SendMessage(message.from_user.id, 'Ошибка')
     else:
         pass
     
 @dp.message_handler(commands=['delete'])
 async def delete(message: types.Message):
     if message.from_user.id == 825292339:
-        msg = message.text.split()
-        conn = sqlite3.connect('Raffle.db', check_same_thread=False)
-        cursor = conn.cursor()
-        cursor.execute(f"SELECT * FROM Members WHERE Number={int(msg[1])}")
-        conn.execute(f"DELETE FROM Members WHERE Number={msg[1]}")
-        conn.commit()
-        return SendMessage(message.from_user.id, f'{cursor.fetchall()} | Удалено')
-        conn.close()
-        print('close')
+        try:
+            msg = message.text.split()
+            conn = sqlite3.connect('Raffle.db', check_same_thread=False)
+            cursor = conn.cursor()
+            cursor.execute(f"SELECT * FROM Members WHERE Number={int(msg[1])}")
+            conn.execute(f"DELETE FROM Members WHERE Number={msg[1]}")
+            conn.commit()
+            return SendMessage(message.from_user.id, f'{cursor.fetchall()} | Удалено')
+            conn.close()
+            
+        except:
+            return SendMessage(message.from_user.id, 'Ошибка')
     else:
         pass
     
