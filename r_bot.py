@@ -52,13 +52,13 @@ async def start(message: types.Message):
     max = cursor.fetchall()
 
     if data == []:
-        await bot.send_message(message.from_user.id, 'Участие стоит 1.000 ₸.\nЧтобы присединиться, оплатите счет ↓')
+        await bot.send_message(message.from_user.id, 'Привет!\n\nЭтот бот сделан для организации розыгрыша среди учеников гимназии №60\n')
         return SendInvoice(message.from_user.id,
                        title='Принять участие',
-                       description=f'''Привет!\n\nЭтот бот сделан для организации розыгрыша среди учеников гимназии №60\n
+                       description=f'''
 Период регистрации 25 апреля - 25 мая
 Макс. число участников - 250 человек
-Оглошение результатов 25 мая на линейке.\nРозыгрываются 2 самоката | Micro Monster Bullet''',
+Оглошение результатов 25 мая на линейке.\nРозыгрываются 2 самоката | Micro Monster BulletУчастие стоит 1.000 ₸.\nЧтобы присединиться, оплатите счет ↓''',
                        provider_token=PROVIDER_TOKEN,
                        currency='kzt',
                        need_name=True,
