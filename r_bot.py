@@ -65,8 +65,7 @@ async def start(message: types.Message):
                                need_phone_number=True,
                                prices=[types.LabeledPrice(label=f"Принять участие", amount=100000)],
                                start_parameter='product',
-                               payload='payload-for-internal-use',
-                               parse_mode='MARKDOWN'
+                               payload='payload-for-internal-use'
                                )
     elif len(max) == 250:
         return SendMessage(message.from_user.id, 'Набор участников закрыт')
