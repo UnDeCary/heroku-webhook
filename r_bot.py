@@ -52,21 +52,22 @@ async def start(message: types.Message):
     max = cursor.fetchall()
 
     if data == []:
-                return SendInvoice(message.from_user.id,
-                               title='Принять участие',
-                               description=f'''Привет!\n\nЭтот бот сделан для организации розыгрыша среди учеников гимназии №60\n
+        
+        return SendInvoice(message.from_user.id,
+                       title='Принять участие',
+                       description=f'''Привет!\n\nЭтот бот сделан для организации розыгрыша среди учеников гимназии №60\n
 Период регистрации 25 апреля - 25 мая
 Макс. число участников - 250 человек
-Оглошение результатов 25 мая на линейке.\nРозыгрываются 2 самоката | Micro Monster Bullet''',
-                               provider_token=PROVIDER_TOKEN,
-                               currency='kzt',
-                               need_name=True,
-                               need_phone_number=True,
-                               prices=[types.LabeledPrice(label=f"Принять участие", amount=100000)],
-                               start_parameter='product',
-                               payload='payload-for-internal-use'
-                               )
-                await bot.send_message(message.from_user.id, 'Участие стоит 1.000 ₸.\nЧтобы присединиться, оплатите счет ↑')
+Оглошение результатов 25 мая на линейке.\nРозыгрываются 2 самоката | Micro Monster Bullet\n\nfff''',
+                       provider_token=PROVIDER_TOKEN,
+                       currency='kzt',
+                       need_name=True,
+                       need_phone_number=True,
+                       prices=[types.LabeledPrice(label=f"Принять участие", amount=100000)],
+                       start_parameter='product',
+                       payload='payload-for-internal-use'
+                       )
+                
     elif len(max) >= 250:
         return SendMessage(message.from_user.id, 'Набор участников закрыт')
 
