@@ -52,7 +52,7 @@ async def start(message: types.Message):
     max = cursor.fetchall()
 
     if data == []:
-                return SendInvoice(call.from_user.id,
+                return SendInvoice(message.from_user.id,
                                title='Принять участие',
                                description=f'''Привет!\n\nЭтот бот сделан для организации розыгрыша среди учеников *гимназии №60*
 Период регистрации *25 апреля* - *25 мая*
